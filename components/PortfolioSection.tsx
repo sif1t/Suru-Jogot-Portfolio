@@ -282,30 +282,34 @@ const PortfolioSection: React.FC = () => {
 
                   {/* Action buttons */}
                   <div className="flex gap-3 mt-auto">
-                    <motion.button
+                    <motion.a
+                      href={item.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-purple-500/50 transition-shadow"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        // Handle demo link
                       }}
                     >
                       <FaExternalLinkAlt className="text-sm" />
-                      <span className="text-sm">Demo</span>
-                    </motion.button>
-                    <motion.button
+                      <span className="text-sm">Live</span>
+                    </motion.a>
+                    <motion.a
+                      href={item.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-cyan-500/50 transition-shadow"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        // Handle github link
                       }}
                     >
                       <FaGithub className="text-sm" />
                       <span className="text-sm">Code</span>
-                    </motion.button>
+                    </motion.a>
                   </div>
                 </div>
 
