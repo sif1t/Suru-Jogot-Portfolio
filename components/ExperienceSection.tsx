@@ -21,6 +21,7 @@ const education: ExperienceItem[] = [
   { title: 'JSC', organization: 'Junior School Certificate', period: '2015', type: 'education' },
   { title: 'SSC', organization: 'Secondary School Certificate', period: '2018', type: 'education' },
   { title: 'Diploma', organization: 'Diploma in Engineering', period: '2023', type: 'education' },
+  { title: 'B.Sc', organization: 'B.Sc in Computer Science and Engineering (CSE) at Northern University Bangladesh', period: '2025 - Present', type: 'education' },
 ];
 
 const ExperienceSection: React.FC = () => {
