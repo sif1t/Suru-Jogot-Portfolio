@@ -349,41 +349,74 @@ const HeroSection: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Description */}
-            <motion.p
-              className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8 max-w-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              Passionate about building innovative web solutions that blend creativity with cutting-edge technology. 
-              Let's turn ideas into reality.
-            </motion.p>
-
-            {/* Stats row */}
+            {/* Description with Beautiful Smooth Animations */}
             <motion.div
-              className="grid grid-cols-3 gap-4 mb-8"
-              initial={{ opacity: 0, y: 20 }}
+              className="mb-8 max-w-xl"
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
             >
-              {[
-                { icon: FaRocket, value: '3+', label: 'Years Exp' },
-                { icon: FaStar, value: '50+', label: 'Projects' },
-                { icon: FaHeart, value: '100%', label: 'Dedication' },
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="glass-strong rounded-2xl p-4 text-center relative overflow-hidden group"
-                  whileHover={{ y: -5, scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <stat.icon className="text-2xl text-cyan-400 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-white relative z-10">{stat.value}</div>
-                  <div className="text-xs text-gray-400 relative z-10">{stat.label}</div>
-                </motion.div>
-              ))}
+              <motion.p
+                className="text-lg md:text-xl text-gray-300 leading-relaxed relative"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.2, delay: 1 }}
+              >
+                {/* Animated words with stagger effect */}
+                {[
+                  'Passionate', ' ', 'about', ' ', 'building', ' ', 'innovative', ' ', 'web', ' ', 'solutions', ' ',
+                  'that', ' ', 'blend', ' ', 'creativity', ' ', 'with', ' ', 'cutting-edge', ' ', 'technology.', ' ',
+                  "Let's", ' ', 'turn', ' ', 'ideas', ' ', 'into', ' ', 'reality.'
+                ].map((word, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block"
+                    initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 1 + index * 0.05,
+                      ease: [0.25, 0.4, 0.25, 1]
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+                
+                {/* Glowing underline animation */}
+                <motion.span
+                  className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full"
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: '100%', opacity: 0.6 }}
+                  transition={{
+                    duration: 1.5,
+                    delay: 2.5,
+                    ease: 'easeInOut'
+                  }}
+                />
+                
+                {/* Floating particles around text */}
+                {[...Array(5)].map((_, i) => (
+                  <motion.span
+                    key={`particle-${i}`}
+                    className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+                    style={{
+                      left: `${20 + i * 20}%`,
+                      top: `${Math.random() * 100}%`,
+                    }}
+                    animate={{
+                      y: [0, -20, 0],
+                      opacity: [0, 1, 0],
+                      scale: [0, 1.5, 0],
+                    }}
+                    transition={{
+                      duration: 2 + i * 0.3,
+                      repeat: Infinity,
+                      delay: 2 + i * 0.4,
+                    }}
+                  />
+                ))}
+              </motion.p>
             </motion.div>
 
             {/* CTA Buttons */}
