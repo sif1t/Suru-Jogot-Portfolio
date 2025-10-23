@@ -18,9 +18,9 @@ interface PortfolioItem {
 const portfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    title: 'E-Commerce Platform',
-    description: 'A full-featured online shopping platform with cart, checkout, and payment integration. Built with React, Node.js, and MongoDB.',
-    image: '/portfolio/project1.jpg', // Replace with actual image
+    title: 'Sifat Ecommearch',
+    description: 'Product Management: Easy-to-use admin panel for managing inventory, categories, and product details.User Accounts: Personalized user accounts with order tracking and wish lists.Secure Payment: Integrated payment gateways with SSL encryption for secure transactions.',
+    image: '/images/sifat ecommearch.png',
     tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
     demoLink: '#',
     githubLink: '#',
@@ -30,7 +30,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 2,
     title: 'Social Media Dashboard',
     description: 'Real-time analytics dashboard for social media management with beautiful data visualizations and reporting features.',
-    image: '/portfolio/project2.jpg', // Replace with actual image
+    image: '/images/joonbook.png',
     tags: ['Next.js', 'TypeScript', 'Chart.js', 'API'],
     demoLink: '#',
     githubLink: '#',
@@ -40,7 +40,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 3,
     title: 'Portfolio Website',
     description: 'Modern portfolio website with smooth animations, interactive elements, and responsive design for creative professionals.',
-    image: '/portfolio/project3.jpg', // Replace with actual image
+    image: '/images/linkdin.png',
     tags: ['React', 'Framer Motion', 'Tailwind', 'TypeScript'],
     demoLink: '#',
     githubLink: '#',
@@ -50,7 +50,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 4,
     title: 'Task Management App',
     description: 'Collaborative task management tool with real-time updates, team collaboration features, and intuitive drag-and-drop interface.',
-    image: '/portfolio/project4.jpg', // Replace with actual image
+    image: '/images/siftube.png',
     tags: ['Vue.js', 'Firebase', 'Vuex', 'DND'],
     demoLink: '#',
     githubLink: '#',
@@ -186,11 +186,18 @@ const PortfolioSection: React.FC = () => {
                   transition={{ duration: 0.8, delay: 0.3 + index * 0.15 }}
                 />
                 
-                {/* Image placeholder with enhanced gradient */}
+                {/* Image with enhanced gradient overlay */}
                 <div className={`h-52 bg-gradient-to-br ${item.color} relative overflow-hidden`}>
+                  {/* Actual Project Image */}
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  
                   {/* Animated mesh gradient overlay */}
                   <motion.div
-                    className="absolute inset-0 opacity-30"
+                    className="absolute inset-0 opacity-20"
                     style={{
                       backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
                                        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)`,
@@ -272,22 +279,6 @@ const PortfolioSection: React.FC = () => {
                   <p className="text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">
                     {item.description}
                   </p>
-                  
-                  {/* Tags - Enhanced */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {item.tags.map((tag, tagIndex) => (
-                      <motion.span
-                        key={tag}
-                        className="px-3 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full text-xs text-cyan-400 border border-cyan-400/30 font-semibold"
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ duration: 0.3, delay: 0.5 + index * 0.15 + tagIndex * 0.05 }}
-                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(6, 182, 212, 0.2)' }}
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </div>
 
                   {/* Action buttons */}
                   <div className="flex gap-3 mt-auto">
@@ -381,9 +372,16 @@ const PortfolioSection: React.FC = () => {
 
                 {/* Image - Enhanced */}
                 <div className={`h-72 md:h-[450px] bg-gradient-to-br ${selectedProject.color} rounded-2xl mb-8 relative overflow-hidden`}>
+                  {/* Actual Project Image */}
+                  <img 
+                    src={selectedProject.image} 
+                    alt={selectedProject.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  
                   {/* Animated mesh gradient */}
                   <motion.div
-                    className="absolute inset-0 opacity-40"
+                    className="absolute inset-0 opacity-30"
                     style={{
                       backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255,255,255,0.2) 0%, transparent 50%),
                                        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 50%)`,
@@ -395,7 +393,7 @@ const PortfolioSection: React.FC = () => {
                   />
                   
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-transparent via-black/30 to-black/70"
+                    className="absolute inset-0 bg-gradient-to-br from-transparent via-black/20 to-black/50"
                   />
 
                   {/* Floating orbs in modal */}
