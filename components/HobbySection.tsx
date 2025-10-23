@@ -2,65 +2,72 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FaGamepad, FaMusic, FaCamera, FaBook, FaPlane, FaFilm, FaPalette, FaChess } from 'react-icons/fa';
+import { FaGamepad, FaMusic, FaCamera, FaBook, FaPlane, FaFilm } from 'react-icons/fa';
 
 interface Hobby {
   title: string;
-  description: string;
   icon: any;
   color: string;
   gradient: string;
   emoji: string;
+  orbitRadius: number;
+  orbitDuration: number;
 }
 
 const hobbies: Hobby[] = [
   {
     title: 'Gaming',
-    description: 'Exploring virtual worlds and solving complex challenges in strategy and adventure games.',
     icon: FaGamepad,
     color: '#8B5CF6',
     gradient: 'from-purple-500 to-pink-500',
     emoji: '🎮',
+    orbitRadius: 180,
+    orbitDuration: 20,
   },
   {
     title: 'Music',
-    description: 'Creating melodies and enjoying diverse genres from classical to electronic music.',
     icon: FaMusic,
     color: '#06B6D4',
     gradient: 'from-cyan-500 to-blue-500',
     emoji: '🎵',
+    orbitRadius: 180,
+    orbitDuration: 25,
   },
   {
     title: 'Photography',
-    description: 'Capturing moments and creating visual stories through the lens.',
     icon: FaCamera,
     color: '#10B981',
     gradient: 'from-green-500 to-teal-500',
     emoji: '📷',
+    orbitRadius: 180,
+    orbitDuration: 22,
   },
   {
     title: 'Reading',
-    description: 'Diving into books about technology, science fiction, and personal development.',
     icon: FaBook,
     color: '#F59E0B',
     gradient: 'from-orange-500 to-red-500',
     emoji: '📚',
+    orbitRadius: 180,
+    orbitDuration: 24,
   },
   {
     title: 'Travel',
-    description: 'Exploring new places, cultures, and experiencing different perspectives.',
     icon: FaPlane,
     color: '#EC4899',
     gradient: 'from-pink-500 to-purple-500',
     emoji: '✈️',
+    orbitRadius: 180,
+    orbitDuration: 23,
   },
   {
     title: 'Movies',
-    description: 'Analyzing cinematography and storytelling in films from various genres.',
     icon: FaFilm,
     color: '#3B82F6',
     gradient: 'from-blue-500 to-indigo-500',
     emoji: '🎬',
+    orbitRadius: 180,
+    orbitDuration: 21,
   },
 ];
 
@@ -96,7 +103,7 @@ const HobbySection: React.FC = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <motion.div
             className="text-6xl mb-4"
@@ -120,144 +127,197 @@ const HobbySection: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Hexagonal Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {hobbies.map((hobby, index) => (
+        {/* Solar System Style - Orbiting Hobbies */}
+        <div className="flex items-center justify-center min-h-[600px] relative">
+          {/* Central Hub */}
+          <motion.div
+            className="absolute z-10"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
             <motion.div
-              key={hobby.title}
-              className="relative group"
-              initial={{ opacity: 0, scale: 0.8, y: 50 }}
-              animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
-              transition={{ 
-                duration: 0.6, 
-                delay: index * 0.1,
-                type: 'spring',
-                stiffness: 100
+              className="w-32 h-32 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-500 shadow-2xl shadow-purple-500/50 flex items-center justify-center relative"
+              animate={{
+                boxShadow: [
+                  '0 0 40px rgba(168, 85, 247, 0.5)',
+                  '0 0 80px rgba(236, 72, 153, 0.7)',
+                  '0 0 40px rgba(168, 85, 247, 0.5)',
+                ],
               }}
+              transition={{ duration: 3, repeat: Infinity }}
             >
+              <span className="text-5xl z-10">✨</span>
+              
+              {/* Pulsing rings */}
               <motion.div
-                className="glass-strong rounded-3xl p-8 h-full relative overflow-hidden cursor-pointer"
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -10,
+                className="absolute inset-0 rounded-full border-2 border-white/30"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.5, 0, 0.5],
                 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-cyan-400/30"
+                animate={{
+                  scale: [1, 1.8, 1],
+                  opacity: [0.5, 0, 0.5],
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* Orbiting Hobbies */}
+          {hobbies.map((hobby, index) => {
+            const angle = (index / hobbies.length) * 360;
+            
+            return (
+              <motion.div
+                key={hobby.title}
+                className="absolute"
+                style={{
+                  width: `${hobby.orbitRadius * 2}px`,
+                  height: `${hobby.orbitRadius * 2}px`,
+                }}
+                initial={{ opacity: 0 }}
+                animate={isInView ? { 
+                  opacity: 1,
+                  rotate: 360,
+                } : {}}
+                transition={{
+                  opacity: { duration: 0.5, delay: 0.5 + index * 0.1 },
+                  rotate: { 
+                    duration: hobby.orbitDuration, 
+                    repeat: Infinity, 
+                    ease: 'linear' 
+                  },
+                }}
               >
-                {/* Glowing border effect */}
+                {/* Orbit path */}
+                <div className="absolute inset-0 rounded-full border border-dashed border-white/10" />
+
+                {/* Hobby Icon Bubble */}
                 <motion.div
-                  className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${hobby.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}
-                />
-
-                {/* Top accent line with animation */}
-                <motion.div
-                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${hobby.gradient}`}
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
-                />
-
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Large emoji with bounce */}
+                  className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  style={{
+                    rotate: -angle,
+                  }}
+                  animate={{
+                    rotate: [0, -360],
+                  }}
+                  transition={{
+                    duration: hobby.orbitDuration,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                >
                   <motion.div
-                    className="text-6xl mb-4"
-                    animate={{
-                      y: [0, -10, 0],
-                      rotate: [0, 5, -5, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 1,
-                    }}
+                    className={`group cursor-pointer`}
+                    whileHover={{ scale: 1.3 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    {hobby.emoji}
-                  </motion.div>
-
-                  {/* Icon in circle */}
-                  <motion.div
-                    className={`w-16 h-16 bg-gradient-to-br ${hobby.gradient} rounded-2xl flex items-center justify-center text-white text-2xl shadow-2xl mb-6 relative`}
-                    whileHover={{ scale: 1.15, rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <hobby.icon />
-                    
-                    {/* Pulsing glow */}
+                    {/* Icon container */}
                     <motion.div
-                      className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${hobby.gradient} blur-lg opacity-0 group-hover:opacity-60`}
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${hobby.gradient} flex items-center justify-center shadow-xl relative`}
                       animate={{
-                        scale: [1, 1.3, 1],
+                        boxShadow: [
+                          `0 0 20px ${hobby.color}40`,
+                          `0 0 40px ${hobby.color}80`,
+                          `0 0 20px ${hobby.color}40`,
+                        ],
                       }}
                       transition={{ duration: 2, repeat: Infinity }}
-                    />
-                  </motion.div>
+                    >
+                      <hobby.icon className="text-white text-2xl z-10" />
+                      
+                      {/* Glow effect */}
+                      <motion.div
+                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${hobby.gradient} opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300`}
+                      />
+                    </motion.div>
 
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-300">
-                    {hobby.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {hobby.description}
-                  </p>
-                </div>
-
-                {/* Floating particles on hover */}
-                <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                >
-                  {[...Array(5)].map((_, i) => (
+                    {/* Label on hover */}
                     <motion.div
-                      key={i}
-                      className={`absolute w-2 h-2 bg-gradient-to-r ${hobby.gradient} rounded-full`}
-                      style={{
-                        left: `${20 + i * 20}%`,
-                        top: `${20 + i * 15}%`,
-                      }}
+                      className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap"
+                      initial={{ opacity: 0, y: -10 }}
+                      whileHover={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="glass-strong px-4 py-2 rounded-lg">
+                        <p className="text-white font-semibold text-sm">{hobby.title}</p>
+                      </div>
+                    </motion.div>
+
+                    {/* Small emoji */}
+                    <motion.div
+                      className="absolute -top-2 -right-2 text-2xl"
                       animate={{
-                        y: [0, -30, -60],
-                        opacity: [0, 1, 0],
-                        scale: [0, 1.5, 0],
+                        rotate: [0, 10, -10, 0],
+                        scale: [1, 1.2, 1],
                       }}
                       transition={{
                         duration: 2,
                         repeat: Infinity,
-                        delay: i * 0.2,
+                        delay: index * 0.3,
                       }}
-                    />
-                  ))}
+                    >
+                      {hobby.emoji}
+                    </motion.div>
+                  </motion.div>
                 </motion.div>
 
-                {/* Corner decorations */}
-                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-white/10 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-white/10 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                {/* Orbiting dots */}
-                <motion.div
-                  className="absolute top-1/2 right-8 w-2 h-2 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100"
-                  animate={{
-                    rotate: 360,
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                  style={{
-                    transformOrigin: '-30px 0px',
-                  }}
-                />
+                {/* Trailing particles */}
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className={`absolute top-0 left-1/2 w-1 h-1 bg-gradient-to-r ${hobby.gradient} rounded-full`}
+                    style={{
+                      marginLeft: -2,
+                      marginTop: -2,
+                    }}
+                    animate={{
+                      opacity: [0, 0.8, 0],
+                      scale: [0, 1.5, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      delay: (i * 0.3) + (index * 0.15),
+                    }}
+                  />
+                ))}
               </motion.div>
-            </motion.div>
+            );
+          })}
+
+          {/* Floating background particles */}
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                opacity: [0, 1, 0],
+                scale: [0, 1.5, 0],
+                y: [0, -30, 0],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 3,
+              }}
+            />
           ))}
         </div>
 
         {/* Bottom decorative element */}
         <motion.div
-          className="mt-20 flex items-center justify-center gap-4"
+          className="mt-16 flex items-center justify-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
