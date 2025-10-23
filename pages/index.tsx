@@ -5,7 +5,6 @@ import Head from 'next/head';
 import StarsBackground from '@/components/StarsBackground';
 import ParticleBackground from '@/components/ParticleBackground';
 import EnhancedParticleBackground from '@/components/EnhancedParticleBackground';
-import FloatingNavigation from '@/components/FloatingNavigation';
 import MobileNavigation from '@/components/MobileNavigation';
 import UniverseNavigation from '@/components/UniverseNavigation';
 import UniverseWrapper from '@/components/UniverseWrapper';
@@ -35,7 +34,6 @@ export default function Home() {
         {/* Universe Wrapper for smooth effects */}
         <UniverseWrapper>
           {/* Navigation */}
-          <FloatingNavigation />
           <MobileNavigation />
           <UniverseNavigation />
           
