@@ -58,22 +58,22 @@ const portfolioItems: PortfolioItem[] = [
   },
   {
     id: 5,
-    title: 'Weather App',
-    description: 'Beautiful weather forecast application with location-based predictions, interactive maps, and detailed weather insights.',
-    image: '/portfolio/project5.jpg', // Replace with actual image
+    title: 'School Management',
+    description: 'Comprehensive school management system with student enrollment, attendance tracking, grade management, and parent-teacher communication features.',
+    image: '/images/school.png',
     tags: ['React', 'OpenWeather API', 'Maps', 'PWA'],
-    demoLink: '#',
-    githubLink: '#',
+    demoLink: 'https://pae1.netlify.app/',
+    githubLink: 'https://github.com/sif1t',
     color: 'from-blue-500 to-indigo-500',
   },
   {
     id: 6,
-    title: 'Blog Platform',
+    title: 'LUXEMART',
     description: 'Full-stack blogging platform with markdown support, comment system, user authentication, and admin dashboard.',
-    image: '/portfolio/project6.jpg', // Replace with actual image
+    image: '/images/luxemart.png', // Replace with actual image
     tags: ['Next.js', 'PostgreSQL', 'Auth', 'Markdown'],
-    demoLink: '#',
-    githubLink: '#',
+    demoLink: 'https://luxemart01.netlify.app/',
+    githubLink: 'https://github.com/sif1t',
     color: 'from-pink-500 to-purple-500',
   },
 ];
