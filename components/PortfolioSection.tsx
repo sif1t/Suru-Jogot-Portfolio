@@ -22,38 +22,38 @@ const portfolioItems: PortfolioItem[] = [
     description: 'Product Management: Easy-to-use admin panel for managing inventory, categories, and product details.User Accounts: Personalized user accounts with order tracking and wish lists.Secure Payment: Integrated payment gateways with SSL encryption for secure transactions.',
     image: '/images/sifat ecommearch.png',
     tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    demoLink: '#',
-    githubLink: '#',
+    demoLink: 'https://sifatecommearch.netlify.app/',
+    githubLink: 'https://github.com/sif1t',
     color: 'from-purple-500 to-pink-500',
   },
   {
     id: 2,
-    title: 'Social Media Dashboard',
-    description: 'Real-time analytics dashboard for social media management with beautiful data visualizations and reporting features.',
+    title: 'JoonBook',
+    description: 'User Profiles: Create and customize detailed profiles to showcase your interests and Responsive Design: Access Jonbook from any device with a responsive, mobile-friendly layout.Notifications: Get notified of important events, messages, and interactions.',
     image: '/images/joonbook.png',
     tags: ['Next.js', 'TypeScript', 'Chart.js', 'API'],
-    demoLink: '#',
-    githubLink: '#',
+    demoLink: 'https://joonbook.netlify.app/',
+    githubLink: 'https://github.com/sif1t',
     color: 'from-cyan-500 to-blue-500',
   },
   {
     id: 3,
-    title: 'Portfolio Website',
-    description: 'Modern portfolio website with smooth animations, interactive elements, and responsive design for creative professionals.',
+    title: 'Linkdin-clone',
+    description: 'Secure user login and registration using JWT (JSON Web Token).Editable user profiles with profile picture, bio, work experience, education, and skills.Advanced search for users, posts, and companies.Insights on profile views and post engagements.Liking, commenting, and sharing posts.',
     image: '/images/linkdin.png',
     tags: ['React', 'Framer Motion', 'Tailwind', 'TypeScript'],
-    demoLink: '#',
-    githubLink: '#',
+    demoLink: 'https://libkdin.netlify.app/',
+    githubLink: 'https://github.com/sif1t',
     color: 'from-green-500 to-teal-500',
   },
   {
     id: 4,
-    title: 'Task Management App',
-    description: 'Collaborative task management tool with real-time updates, team collaboration features, and intuitive drag-and-drop interface.',
+    title: 'SifTube',
+    description: 'User Authentication: Secure login and registration system.Video Streaming: High-quality video playback with adaptive bitrate streaming.Search Functionality: Powerful search engine to find videos easily.',
     image: '/images/siftube.png',
     tags: ['Vue.js', 'Firebase', 'Vuex', 'DND'],
-    demoLink: '#',
-    githubLink: '#',
+    demoLink: 'https://siftube.netlify.app/',
+    githubLink: 'https://github.com/sif1t',
     color: 'from-orange-500 to-red-500',
   },
   {
@@ -449,36 +449,6 @@ const PortfolioSection: React.FC = () => {
                       <p className="text-gray-300 text-lg leading-relaxed">
                         {selectedProject.description}
                       </p>
-                    </div>
-                  </motion.div>
-
-                  {/* Technologies Section */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center">
-                        <FaCode className="text-white" />
-                      </div>
-                      <h3 className="text-3xl font-bold text-pink-400">Technologies Used</h3>
-                    </div>
-                    <div className="glass rounded-2xl p-6 border border-pink-500/20">
-                      <div className="flex flex-wrap gap-3">
-                        {selectedProject.tags.map((tag, tagIndex) => (
-                          <motion.span
-                            key={tag}
-                            className="px-5 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full text-base text-white border border-white/30 font-semibold"
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.6 + tagIndex * 0.05 }}
-                            whileHover={{ scale: 1.1, backgroundColor: 'rgba(168, 85, 247, 0.3)' }}
-                          >
-                            {tag}
-                          </motion.span>
-                        ))}
-                      </div>
                     </div>
                   </motion.div>
 
