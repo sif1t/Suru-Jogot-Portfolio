@@ -1,12 +1,26 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { FaCode, FaRocket, FaHeart, FaStar, FaDownload, FaPlay } from 'react-icons/fa';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [currentRole, setCurrentRole] = useState(0);
   const controls = useAnimation();
+
+  const roles = [
+    { 
+      title: 'Frontend Developer',
+      subtitle: 'Building Beautiful Interfaces',
+      theme: 'frontend' // Cyan/Green theme
+    },
+    { 
+      title: 'Web Developer',
+      subtitle: 'Creating Web Solutions',
+      theme: 'web' // Pink/Orange theme
+    },
+  ];
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -19,6 +33,15 @@ const HeroSection: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Auto-rotate roles
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRole((prev) => (prev + 1) % roles.length);
+    }, 4000); // Change every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [roles.length]);
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-20">
@@ -83,25 +106,245 @@ const HeroSection: React.FC = () => {
               </h1>
             </motion.div>
 
-            {/* Typing effect subtitle */}
+            {/* Typing effect subtitle with solar system animation */}
             <motion.div
-              className="flex items-center gap-3 mb-8"
+              className="relative mb-8"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <motion.div
-                className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center"
-                whileHover={{ rotate: 360, scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              >
-                <FaCode className="text-white text-xl" />
-              </motion.div>
-              <div>
-                <h2 className="text-2xl md:text-4xl font-bold text-cyan-400">
-                  Full Stack Developer
-                </h2>
-                <p className="text-gray-400 text-sm md:text-base">Crafting Digital Experiences</p>
+              <div className="flex items-center gap-3">
+                {/* Icon changes based on role */}
+                <motion.div
+                  key={currentRole}
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+                    roles[currentRole].theme === 'full-stack' ? 'bg-gradient-to-br from-purple-500 to-pink-500' :
+                    roles[currentRole].theme === 'frontend' ? 'bg-gradient-to-br from-cyan-500 to-green-500' :
+                    'bg-gradient-to-br from-pink-500 to-orange-500'
+                  }`}
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                >
+                  <FaCode className="text-white text-xl" />
+                </motion.div>
+                
+                <div className="flex-grow">
+                  <motion.h2
+                    key={`role-${currentRole}`}
+                    className={`text-2xl md:text-4xl font-bold ${
+                      roles[currentRole].theme === 'full-stack' ? 'text-cyan-400' :
+                      roles[currentRole].theme === 'frontend' ? 'text-green-400' :
+                      'text-orange-400'
+                    }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {roles[currentRole].title}
+                  </motion.h2>
+                  <motion.p
+                    key={`subtitle-${currentRole}`}
+                    className="text-gray-400 text-sm md:text-base"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    {roles[currentRole].subtitle}
+                  </motion.p>
+                </div>
+              </div>
+
+              {/* Unique Solar System Animation for each role */}
+              <div className="absolute -right-16 top-1/2 -translate-y-1/2 w-32 h-32 hidden lg:block">
+                {/* Full Stack - Classic Solar System */}
+                {roles[currentRole].theme === 'full-stack' && (
+                  <motion.div
+                    key="solar-fullstack"
+                    className="relative w-full h-full"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                  >
+                    {/* Sun in center */}
+                    <motion.div
+                      className="absolute top-1/2 left-1/2 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-yellow-500/50"
+                      animate={{
+                        boxShadow: [
+                          '0 0 20px rgba(251, 191, 36, 0.5)',
+                          '0 0 40px rgba(251, 191, 36, 0.8)',
+                          '0 0 20px rgba(251, 191, 36, 0.5)',
+                        ],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    
+                    {/* Orbiting planets */}
+                    {[
+                      { size: 4, distance: 20, color: 'bg-blue-400', duration: 3 },
+                      { size: 5, distance: 35, color: 'bg-purple-500', duration: 5 },
+                      { size: 3, distance: 50, color: 'bg-pink-400', duration: 7 },
+                    ].map((planet, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute top-1/2 left-1/2"
+                        style={{
+                          width: planet.distance * 2,
+                          height: planet.distance * 2,
+                          marginLeft: -planet.distance,
+                          marginTop: -planet.distance,
+                        }}
+                        animate={{ rotate: 360 }}
+                        transition={{
+                          duration: planet.duration,
+                          repeat: Infinity,
+                          ease: 'linear',
+                        }}
+                      >
+                        <div
+                          className={`absolute top-0 left-1/2 ${planet.color} rounded-full shadow-lg`}
+                          style={{
+                            width: planet.size,
+                            height: planet.size,
+                            marginLeft: -planet.size / 2,
+                          }}
+                        />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
+
+                {/* Frontend - Atom/Nucleus Style */}
+                {roles[currentRole].theme === 'frontend' && (
+                  <motion.div
+                    key="solar-frontend"
+                    className="relative w-full h-full"
+                    initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0, rotate: 180 }}
+                  >
+                    {/* Central nucleus */}
+                    <motion.div
+                      className="absolute top-1/2 left-1/2 w-10 h-10 bg-gradient-to-br from-cyan-400 to-green-500 rounded-full -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-cyan-500/50"
+                      animate={{
+                        scale: [1, 1.1, 1],
+                        boxShadow: [
+                          '0 0 20px rgba(6, 182, 212, 0.5)',
+                          '0 0 40px rgba(6, 182, 212, 0.8)',
+                          '0 0 20px rgba(6, 182, 212, 0.5)',
+                        ],
+                      }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                    
+                    {/* Electron orbits - 3 rings at different angles */}
+                    {[0, 60, 120].map((angle, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute top-1/2 left-1/2 w-24 h-24 -ml-12 -mt-12 border-2 border-green-400/30 rounded-full"
+                        style={{
+                          transform: `rotateX(${angle}deg) rotateY(${angle}deg)`,
+                        }}
+                        animate={{ rotate: 360 }}
+                        transition={{
+                          duration: 4 + i,
+                          repeat: Infinity,
+                          ease: 'linear',
+                        }}
+                      >
+                        <motion.div
+                          className="absolute top-0 left-1/2 w-3 h-3 bg-green-400 rounded-full -ml-1.5 shadow-lg shadow-green-400/50"
+                          animate={{
+                            boxShadow: [
+                              '0 0 10px rgba(74, 222, 128, 0.5)',
+                              '0 0 20px rgba(74, 222, 128, 1)',
+                              '0 0 10px rgba(74, 222, 128, 0.5)',
+                            ],
+                          }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
+
+                {/* Web Developer - Galaxy Spiral */}
+                {roles[currentRole].theme === 'web' && (
+                  <motion.div
+                    key="solar-web"
+                    className="relative w-full h-full"
+                    initial={{ opacity: 0, scale: 0, rotate: 180 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0, rotate: -180 }}
+                  >
+                    {/* Central black hole */}
+                    <motion.div
+                      className="absolute top-1/2 left-1/2 w-6 h-6 bg-gradient-to-br from-pink-500 to-orange-600 rounded-full -translate-x-1/2 -translate-y-1/2"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        boxShadow: [
+                          '0 0 20px rgba(236, 72, 153, 0.6)',
+                          '0 0 40px rgba(236, 72, 153, 1)',
+                          '0 0 20px rgba(236, 72, 153, 0.6)',
+                        ],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+
+                    {/* Spiral arms with stars */}
+                    {[0, 72, 144, 216, 288].map((startAngle, armIndex) => (
+                      <React.Fragment key={armIndex}>
+                        {[10, 20, 30, 40, 50].map((distance, i) => {
+                          const angle = startAngle + (i * 15);
+                          const x = Math.cos((angle * Math.PI) / 180) * distance;
+                          const y = Math.sin((angle * Math.PI) / 180) * distance;
+                          
+                          return (
+                            <motion.div
+                              key={`${armIndex}-${i}`}
+                              className="absolute top-1/2 left-1/2 w-2 h-2 bg-orange-400 rounded-full"
+                              style={{
+                                x: x - 4,
+                                y: y - 4,
+                              }}
+                              animate={{
+                                scale: [1, 1.5, 1],
+                                opacity: [0.4, 1, 0.4],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                delay: armIndex * 0.2 + i * 0.1,
+                              }}
+                            />
+                          );
+                        })}
+                      </React.Fragment>
+                    ))}
+
+                    {/* Rotating spiral effect */}
+                    <motion.div
+                      className="absolute inset-0"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                    >
+                      {[...Array(3)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="absolute top-1/2 left-1/2 border border-pink-500/20 rounded-full"
+                          style={{
+                            width: 20 + i * 20,
+                            height: 20 + i * 20,
+                            marginLeft: -(10 + i * 10),
+                            marginTop: -(10 + i * 10),
+                          }}
+                        />
+                      ))}
+                    </motion.div>
+                  </motion.div>
+                )}
               </div>
             </motion.div>
 
