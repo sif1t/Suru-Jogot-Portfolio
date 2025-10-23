@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FaCode, FaPaintBrush, FaMobile, FaRocket } from 'react-icons/fa';
+import { FaCode, FaPaintBrush, FaMobile, FaRocket, FaDatabase, FaCloud, FaCog, FaLightbulb } from 'react-icons/fa';
 
 interface Service {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: any;
   color: string;
+  gradient: string;
   features: string[];
 }
 
@@ -16,203 +17,283 @@ const services: Service[] = [
   {
     title: 'Web Development',
     description: 'Building robust, scalable web applications with modern technologies and best practices.',
-    icon: <FaCode />,
-    color: 'from-purple-500 to-pink-500',
+    icon: FaCode,
+    color: '#8B5CF6',
+    gradient: 'from-purple-500 to-pink-500',
     features: ['React & Next.js', 'Node.js Backend', 'API Integration', 'Database Design'],
   },
   {
-    title: 'Web Design',
+    title: 'UI/UX Design',
     description: 'Creating beautiful, user-friendly interfaces that captivate and engage your audience.',
-    icon: <FaPaintBrush />,
-    color: 'from-cyan-500 to-blue-500',
+    icon: FaPaintBrush,
+    color: '#06B6D4',
+    gradient: 'from-cyan-500 to-blue-500',
     features: ['UI/UX Design', 'Responsive Layouts', 'Prototyping', 'Brand Identity'],
+  },
+  {
+    title: 'Mobile Apps',
+    description: 'Developing cross-platform mobile applications with seamless user experiences.',
+    icon: FaMobile,
+    color: '#10B981',
+    gradient: 'from-green-500 to-teal-500',
+    features: ['React Native', 'Flutter', 'iOS & Android', 'App Store Deploy'],
+  },
+  {
+    title: 'Performance',
+    description: 'Optimizing applications for lightning-fast performance and scalability.',
+    icon: FaRocket,
+    color: '#F59E0B',
+    gradient: 'from-orange-500 to-red-500',
+    features: ['Code Optimization', 'SEO Best Practices', 'Fast Loading', 'CDN Integration'],
   },
 ];
 
 const ServicesSection: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section id="services" className="min-h-screen flex items-center justify-center py-20 px-4 relative" ref={ref}>
-      <div className="max-w-6xl w-full">
+    <section id="services" className="min-h-screen flex items-center justify-center py-20 px-4 relative overflow-hidden" ref={ref}>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+      </div>
+
+      <div className="max-w-7xl w-full relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-4">Services</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
-          <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto">
-            Transforming ideas into digital reality with cutting-edge technology and creative design
+          <motion.div
+            className="inline-block mb-4"
+            animate={{
+              rotate: [0, 360],
+            }}
+            transition={{ 
+              rotate: { duration: 20, repeat: Infinity, ease: 'linear' },
+            }}
+          >
+            <FaCog className="text-6xl text-purple-400 mx-auto mb-4" />
+          </motion.div>
+          <h2 className="text-5xl md:text-7xl font-bold gradient-text mb-6 tracking-tight">
+            What I Do
+          </h2>
+          <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto">
+            Crafting digital experiences that blend innovation with functionality
           </p>
         </motion.div>
 
-        {/* Main service cards */}
-        <div className="grid md:grid-cols-2 gap-12 mb-20">
+        {/* Unique Bento Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              className="glass-strong rounded-3xl p-8 md:p-12 relative overflow-hidden group cursor-pointer"
-              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-              animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-              transition={{ duration: 0.8, delay: index * 0.3 }}
-              whileHover={{ scale: 1.05, y: -10 }}
+              className="relative group"
+              initial={{ opacity: 0, y: 50, rotateX: -20 }}
+              animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.15,
+                type: 'spring',
+                stiffness: 100
+              }}
+              onHoverStart={() => setHoveredIndex(index)}
+              onHoverEnd={() => setHoveredIndex(null)}
             >
-              {/* Animated background gradient */}
               <motion.div
-                className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
-                animate={{
-                  backgroundPosition: ['0% 0%', '100% 100%'],
+                className="glass-strong rounded-3xl p-8 h-full relative overflow-hidden cursor-pointer"
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -10,
+                  rotateY: 5,
+                  rotateX: 5,
                 }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: 'reverse',
+                transition={{ duration: 0.3 }}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  perspective: 1000,
                 }}
-              />
-
-              {/* Content */}
-              <div className="relative z-10">
-                {/* Icon */}
+              >
+                {/* Glowing border effect */}
                 <motion.div
-                  className={`w-20 h-20 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center text-white text-4xl mb-6 shadow-2xl`}
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  {service.icon}
-                </motion.div>
+                  className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500`}
+                  animate={{
+                    scale: hoveredIndex === index ? [1, 1.1, 1] : 1,
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
 
-                {/* Title */}
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  {service.title}
-                </h3>
+                {/* Top accent line */}
+                <motion.div
+                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${service.gradient}`}
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: 1 } : {}}
+                  transition={{ duration: 0.8, delay: 0.3 + index * 0.15 }}
+                />
 
-                {/* Description */}
-                <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                  {service.description}
-                </p>
-
-                {/* Features */}
-                <div className="space-y-3">
-                  {service.features.map((feature, idx) => (
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Floating icon with 3D effect */}
+                  <motion.div
+                    className="mb-6"
+                    animate={{
+                      y: hoveredIndex === index ? [0, -10, 0] : 0,
+                      rotateZ: hoveredIndex === index ? [0, 360] : 0,
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: hoveredIndex === index ? Infinity : 0,
+                    }}
+                  >
                     <motion.div
-                      key={idx}
-                      className="flex items-center gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ duration: 0.5, delay: index * 0.3 + idx * 0.1 }}
+                      className={`w-20 h-20 bg-gradient-to-br ${service.gradient} rounded-2xl flex items-center justify-center text-white text-3xl shadow-2xl relative`}
+                      whileHover={{ scale: 1.1, rotate: 360 }}
+                      transition={{ duration: 0.6 }}
                     >
-                      <div className={`w-2 h-2 bg-gradient-to-r ${service.color} rounded-full`}></div>
-                      <span className="text-gray-400">{feature}</span>
+                      <service.icon />
+                      
+                      {/* Glow effect */}
+                      <motion.div
+                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.gradient} blur-lg opacity-0 group-hover:opacity-60`}
+                        animate={{
+                          scale: [1, 1.2, 1],
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
                     </motion.div>
-                  ))}
-                </div>
-              </div>
+                  </motion.div>
 
-              {/* Floating orb decorations */}
-              <motion.div
-                className={`absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br ${service.color} rounded-full blur-3xl opacity-30`}
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                }}
-              />
-              <motion.div
-                className={`absolute -left-8 -bottom-8 w-24 h-24 bg-gradient-to-br ${service.color} rounded-full blur-2xl opacity-20`}
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.2, 0.4, 0.2],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: 1,
-                }}
-              />
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-300">
+                    {service.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                    {service.description}
+                  </p>
+
+                  {/* Features with animated bullets */}
+                  <div className="space-y-2">
+                    {service.features.map((feature, idx) => (
+                      <motion.div
+                        key={idx}
+                        className="flex items-center gap-2"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.5 + index * 0.15 + idx * 0.1 }}
+                      >
+                        <motion.div
+                          className={`w-1.5 h-1.5 bg-gradient-to-r ${service.gradient} rounded-full`}
+                          animate={{
+                            scale: hoveredIndex === index ? [1, 1.5, 1] : 1,
+                          }}
+                          transition={{ duration: 1, repeat: Infinity, delay: idx * 0.2 }}
+                        />
+                        <span className="text-gray-500 text-xs">{feature}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Floating particles */}
+                {hoveredIndex === index && (
+                  <>
+                    {[...Array(6)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className={`absolute w-1 h-1 bg-gradient-to-r ${service.gradient} rounded-full`}
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                        }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{
+                          y: [0, -30, -60],
+                          opacity: [0, 1, 0],
+                          scale: [0, 1.5, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.2,
+                        }}
+                      />
+                    ))}
+                  </>
+                )}
+
+                {/* Corner decorations */}
+                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-white/10 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-white/10 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
 
-        {/* Orbiting planets visualization */}
-        <div className="relative h-96 hidden lg:block">
-          {/* Central node */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 w-40 h-40 bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-2xl z-10"
-            style={{ x: -80, y: -80 }}
-            animate={{
-              rotate: 360,
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
+        {/* Bottom decoration - Connection lines */}
+        <motion.div
+          className="mt-20 relative h-32 hidden lg:block"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 1 }}
+        >
+          <svg className="w-full h-full" viewBox="0 0 1000 100">
+            <motion.path
+              d="M 0,50 Q 250,10 500,50 T 1000,50"
+              stroke="url(#gradient)"
+              strokeWidth="2"
+              fill="none"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, delay: 1.2 }}
+            />
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.3" />
+                <stop offset="50%" stopColor="#EC4899" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.3" />
+              </linearGradient>
+            </defs>
+          </svg>
+          
+          {/* Pulsing dots on the line */}
+          {[0, 33, 66, 100].map((position, i) => (
             <motion.div
+              key={i}
+              className="absolute w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+              style={{ left: `${position}%`, top: '50%' }}
               animate={{
-                scale: [1, 1.1, 1],
+                scale: [1, 1.5, 1],
+                opacity: [0.5, 1, 0.5],
               }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
+                delay: i * 0.3,
               }}
-            >
-              Services
-            </motion.div>
-          </motion.div>
-
-          {/* Orbiting service planets */}
-          {services.map((service, index) => {
-            const angle = (index * 360) / services.length;
-            const radius = 200;
-
-            return (
-              <motion.div
-                key={service.title}
-                className="absolute top-1/2 left-1/2"
-                style={{ x: -40, y: -40 }}
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 15,
-                  repeat: Infinity,
-                  ease: 'linear',
-                  delay: index * 2,
-                }}
-              >
-                <motion.div
-                  className={`w-20 h-20 bg-gradient-to-br ${service.color} rounded-full flex items-center justify-center text-white text-2xl shadow-xl`}
-                  style={{
-                    x: Math.cos((angle * Math.PI) / 180) * radius,
-                    y: Math.sin((angle * Math.PI) / 180) * radius,
-                  }}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.5,
-                  }}
-                  whileHover={{ scale: 1.5 }}
-                >
-                  {service.icon}
-                </motion.div>
-              </motion.div>
-            );
-          })}
-
-          {/* Orbit path rings */}
-          <div className="absolute top-1/2 left-1/2 w-96 h-96 border border-purple-500/30 rounded-full" style={{ x: -192, y: -192 }}></div>
-          <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] border border-pink-500/20 rounded-full" style={{ x: -250, y: -250 }}></div>
-        </div>
+            />
+          ))}
+        </motion.div>
       </div>
     </section>
   );

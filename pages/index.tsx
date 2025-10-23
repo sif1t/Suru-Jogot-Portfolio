@@ -10,8 +10,8 @@ import UniverseNavigation from '@/components/UniverseNavigation';
 import UniverseWrapper from '@/components/UniverseWrapper';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
+import HobbySection from '@/components/HobbySection';
 import ExperienceSection from '@/components/ExperienceSection';
-import ServicesSection from '@/components/ServicesSection';
 import PortfolioSection from '@/components/PortfolioSection';
 import ContactSection from '@/components/ContactSection';
 
@@ -40,8 +40,8 @@ export default function Home() {
           {/* Sections */}
           <HeroSection />
           <AboutSection />
+          <HobbySection />
           <ExperienceSection />
-          <ServicesSection />
           <PortfolioSection />
           <ContactSection />
           
