@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, Fragment } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import { FaCode, FaRocket, FaHeart, FaStar, FaDownload, FaPlay } from 'react-icons/fa';
+import { FaCode, FaRocket, FaHeart, FaStar, FaDownload, FaPlay, FaReact, FaNodeJs, FaVuejs } from 'react-icons/fa';
+import { SiNextdotjs, SiTypescript } from 'react-icons/si';
 
 const HeroSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -488,26 +489,172 @@ const HeroSection: React.FC = () => {
                     ))}
                   </motion.div>
 
-                  {/* Skill badges floating around */}
-                  {[
-                    { name: 'React', pos: 'top-4 -left-12', color: 'from-blue-500 to-cyan-500', delay: 0 },
-                    { name: 'Node.js', pos: 'top-20 -right-16', color: 'from-green-500 to-teal-500', delay: 0.5 },
-                    { name: 'TypeScript', pos: 'bottom-20 -left-16', color: 'from-blue-600 to-indigo-500', delay: 1 },
-                    { name: 'Next.js', pos: 'bottom-4 -right-12', color: 'from-gray-700 to-gray-900', delay: 1.5 },
-                  ].map((skill, i) => (
+                  {/* Orbiting Skills Solar System - Absolutely Unique */}
+                  <div className="absolute -inset-16 hidden xl:block pointer-events-none">
                     <motion.div
-                      key={i}
-                      className={`absolute ${skill.pos} glass px-4 py-2 rounded-full border border-white/20 hidden xl:block`}
+                      className="relative w-full h-full"
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 1.5 + skill.delay }}
-                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 1, delay: 1.5 }}
                     >
-                      <span className={`text-sm font-bold bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}>
-                        {skill.name}
-                      </span>
+                      {/* Skill planets with icons */}
+                      {[
+                        { 
+                          name: 'React', 
+                          icon: <FaReact className="text-2xl" />, 
+                          color: 'from-blue-400 to-cyan-500',
+                          orbitRadius: 180,
+                          planetSize: 'w-16 h-16',
+                          orbitSpeed: 8,
+                          glowColor: 'shadow-cyan-500/50'
+                        },
+                        { 
+                          name: 'Node.js', 
+                          icon: <FaNodeJs className="text-2xl" />, 
+                          color: 'from-green-500 to-teal-500',
+                          orbitRadius: 200,
+                          planetSize: 'w-14 h-14',
+                          orbitSpeed: 10,
+                          glowColor: 'shadow-green-500/50'
+                        },
+                        { 
+                          name: 'TypeScript', 
+                          icon: <SiTypescript className="text-xl" />, 
+                          color: 'from-blue-600 to-indigo-500',
+                          orbitRadius: 220,
+                          planetSize: 'w-12 h-12',
+                          orbitSpeed: 12,
+                          glowColor: 'shadow-blue-500/50'
+                        },
+                        { 
+                          name: 'Next.js', 
+                          icon: <SiNextdotjs className="text-xl" />, 
+                          color: 'from-gray-200 to-gray-400',
+                          orbitRadius: 240,
+                          planetSize: 'w-14 h-14',
+                          orbitSpeed: 14,
+                          glowColor: 'shadow-gray-400/50'
+                        },
+                      ].map((skill, index) => (
+                        <motion.div
+                          key={index}
+                          className="absolute top-1/2 left-1/2 pointer-events-auto"
+                          style={{
+                            width: skill.orbitRadius * 2,
+                            height: skill.orbitRadius * 2,
+                            marginLeft: -skill.orbitRadius,
+                            marginTop: -skill.orbitRadius,
+                          }}
+                          animate={{ rotate: 360 }}
+                          transition={{
+                            duration: skill.orbitSpeed,
+                            repeat: Infinity,
+                            ease: 'linear',
+                          }}
+                        >
+                          {/* Orbit path ring */}
+                          <motion.div
+                            className="absolute inset-0 rounded-full border border-dashed border-white/10"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0.1, 0.3, 0.1] }}
+                            transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
+                          />
+
+                          {/* Skill planet */}
+                          <motion.div
+                            className={`absolute top-0 left-1/2 ${skill.planetSize} -ml-8 cursor-pointer group`}
+                            whileHover={{ scale: 1.3, rotate: 360 }}
+                            transition={{ duration: 0.5 }}
+                          >
+                            {/* Planet card */}
+                            <motion.div
+                              className={`w-full h-full bg-gradient-to-br ${skill.color} rounded-2xl flex items-center justify-center text-white shadow-xl ${skill.glowColor} relative overflow-hidden border-2 border-white/20`}
+                              animate={{
+                                boxShadow: [
+                                  `0 0 20px rgba(255, 255, 255, 0.2)`,
+                                  `0 0 40px rgba(255, 255, 255, 0.4)`,
+                                  `0 0 20px rgba(255, 255, 255, 0.2)`,
+                                ],
+                              }}
+                              transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+                            >
+                              {/* Icon */}
+                              <div className="relative z-10">
+                                {skill.icon}
+                              </div>
+
+                              {/* Rotating shine effect */}
+                              <motion.div
+                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                              />
+
+                              {/* Pulsing glow */}
+                              <motion.div
+                                className="absolute inset-0 bg-white/20 rounded-2xl"
+                                animate={{
+                                  scale: [1, 1.2, 1],
+                                  opacity: [0, 0.3, 0],
+                                }}
+                                transition={{ duration: 2, repeat: Infinity, delay: index * 0.4 }}
+                              />
+                            </motion.div>
+
+                            {/* Tooltip on hover */}
+                            <motion.div
+                              className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap"
+                            >
+                              <div className="bg-gray-900 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-2xl border border-white/20">
+                                {skill.name}
+                              </div>
+                            </motion.div>
+
+                            {/* Trailing particles */}
+                            {[...Array(3)].map((_, i) => (
+                              <motion.div
+                                key={i}
+                                className={`absolute top-1/2 left-1/2 w-1 h-1 bg-gradient-to-br ${skill.color} rounded-full`}
+                                style={{
+                                  marginLeft: -2 - i * 8,
+                                  marginTop: -2,
+                                }}
+                                animate={{
+                                  scale: [1, 0, 1],
+                                  opacity: [0.8, 0, 0.8],
+                                }}
+                                transition={{
+                                  duration: 1.5,
+                                  repeat: Infinity,
+                                  delay: i * 0.2,
+                                }}
+                              />
+                            ))}
+                          </motion.div>
+                        </motion.div>
+                      ))}
+
+                      {/* Connection lines from center */}
+                      {[180, 200, 220, 240].map((radius, index) => (
+                        <motion.div
+                          key={index}
+                          className="absolute top-1/2 left-1/2"
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 0.1, scale: 1 }}
+                          transition={{ duration: 0.8, delay: 1.7 + index * 0.1 }}
+                        >
+                          <div
+                            className="border-l border-cyan-400/20"
+                            style={{
+                              height: radius,
+                              transformOrigin: 'top',
+                              transform: `rotate(${index * 90}deg)`,
+                            }}
+                          />
+                        </motion.div>
+                      ))}
                     </motion.div>
-                  ))}
+                  </div>
                 </div>
 
                 {/* Status indicator */}
