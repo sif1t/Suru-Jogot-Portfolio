@@ -164,7 +164,7 @@ const AboutSection: React.FC = () => {
                     whileHover={{ scale: 1.05, y: -5 }}
                   >
                     <FaRocket className="text-2xl text-cyan-400 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-white">3+</div>
+                    <div className="text-2xl font-bold text-white">2+</div>
                     <div className="text-xs text-gray-400">Years Exp</div>
                   </motion.div>
                   
@@ -182,7 +182,7 @@ const AboutSection: React.FC = () => {
                     whileHover={{ scale: 1.05, y: -5 }}
                   >
                     <FaStar className="text-2xl text-pink-400 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-white">50+</div>
+                    <div className="text-2xl font-bold text-white">15+</div>
                     <div className="text-xs text-gray-400">Projects</div>
                   </motion.div>
                 </div>
