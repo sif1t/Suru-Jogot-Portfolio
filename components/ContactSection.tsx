@@ -7,17 +7,9 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaGithub, FaLinkedin
 const ContactSection: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isFocused, setIsFocused] = useState({ name: false, email: false, message: false });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -52,7 +44,7 @@ const ContactSection: React.FC = () => {
             
             <h3 className="text-3xl font-bold text-cyan-400 mb-8 relative">Send a Message</h3>
             
-            <form onSubmit={handleSubmit} className="space-y-6 relative">
+            <form action="https://formspree.io/f/xanlwred" method="POST" className="space-y-6 relative">
               {/* Name Field */}
               <div className="relative">
                 <motion.label
