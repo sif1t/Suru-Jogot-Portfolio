@@ -18,8 +18,8 @@ const skills: Skill[] = [
   { name: 'Bootstrap', percentage: 60, color: 'from-purple-500 to-pink-500' },
   { name: 'JavaScript', percentage: 80, color: 'from-yellow-500 to-orange-500' },
   { name: 'Node.js', percentage: 60, color: 'from-green-500 to-emerald-500' },
-  { name: 'Vue.js', percentage: 50, color: 'from-green-400 to-teal-500' },
   { name: 'React.js', percentage: 70, color: 'from-cyan-500 to-blue-500' },
+  
 ];
 
 const AboutSection: React.FC = () => {
