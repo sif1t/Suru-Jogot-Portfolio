@@ -333,7 +333,7 @@ const AboutSection: React.FC = () => {
               {[...Array(4)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-1.5 h-1.5 bg-pink-400 rounded-full"
+                  className="absolute w-1.5 h-1.5 bg-p</div>ink-400 rounded-full"
                   style={{
                     top: `${15 + i * 25}%`,
                     left: `${10 + i * 10}%`,

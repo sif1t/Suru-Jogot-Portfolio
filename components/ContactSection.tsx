@@ -233,7 +233,7 @@ const ContactSection: React.FC = () => {
               <h3 className="text-2xl font-bold text-white mb-6 relative">Connect With Me</h3>
               <div className="flex gap-4">
                 <motion.a
-                  href="#"
+                  href="https://github.com/sif1t"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xl hover:scale-110 transition-smooth"
@@ -243,7 +243,7 @@ const ContactSection: React.FC = () => {
                   <FaGithub />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="https://www.linkedin.com/in/arifeen-sifat-037a78226/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xl hover:scale-110 transition-smooth"
