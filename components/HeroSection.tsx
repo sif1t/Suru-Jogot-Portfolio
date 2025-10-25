@@ -363,25 +363,22 @@ const HeroSection: React.FC = () => {
                 transition={{ duration: 1.2, delay: 1 }}
               >
                 {/* Animated words with stagger effect */}
-                {[
-                  'Passionate', ' ', 'about', ' ', 'building', ' ', 'innovative', ' ', 'web', ' ', 'solutions', ' ',
-                  'that', ' ', 'blend', ' ', 'creativity', ' ', 'with', ' ', 'cutting-edge', ' ', 'technology.', ' ',
-                  "Let's", ' ', 'turn', ' ', 'ideas', ' ', 'into', ' ', 'reality.'
-                ].map((word, index) => (
+                {(`I'm a web designer who codes. I create simple, original, and impactful user experiences, crafting visually striking, user-friendly websites that leave a lasting impression.`.split(' ').map((word, index, arr) => (
                   <motion.span
                     key={index}
                     className="inline-block"
                     initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                     transition={{
-                      duration: 0.5,
-                      delay: 1 + index * 0.05,
-                      ease: [0.25, 0.4, 0.25, 1]
+                      duration: 0.45,
+                      delay: 0.8 + index * 0.04,
+                      ease: [0.25, 0.4, 0.25, 1],
                     }}
                   >
                     {word}
+                    {index < arr.length - 1 ? '\u00A0' : ''}
                   </motion.span>
-                ))}
+                )))}
                 
                 {/* Glowing underline animation */}
                 <motion.span
