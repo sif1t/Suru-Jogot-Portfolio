@@ -8,6 +8,8 @@
     --cosmic-pink: #ec4899;
     --cosmic-blue: #3b82f6;
     --cosmic-cyan: #06b6d4;
+    --header-offset: 90px;
+    /* used for smooth scroll offset */
 }
 
 * {
@@ -25,6 +27,7 @@ body {
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--header-offset);
 }
 
 /* Glassmorphism utility */
@@ -234,6 +237,11 @@ html {
 section {
     scroll-snap-align: start;
     position: relative;
+}
+
+/* Ensure in-page anchor targets don't get hidden under sticky header */
+section[id] {
+    scroll-margin-top: var(--header-offset);
 }
 
 /* Cosmic grid background (subtle) */
