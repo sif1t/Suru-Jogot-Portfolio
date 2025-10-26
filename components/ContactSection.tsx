@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaGithub, FaLinkedin, FaFacebook } from 'react-icons/fa';
 
 const ContactSection: React.FC = () => {
   const ref = useRef(null);
@@ -253,14 +253,14 @@ const ContactSection: React.FC = () => {
                   <FaLinkedin />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=100065154993270"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white text-xl hover:scale-110 transition-smooth"
                   whileHover={{ scale: 1.2, rotate: 360 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaTwitter />
+                  <FaFacebook />
                 </motion.a>
               </div>
             </div>
