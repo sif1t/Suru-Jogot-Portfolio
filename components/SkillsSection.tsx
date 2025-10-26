@@ -45,6 +45,19 @@ const SkillsSection: React.FC = () => {
           </div>
         </motion.div>
 
+        {/* Description */}
+        <motion.p
+          className="max-w-3xl mx-auto text-center text-sm md:text-base text-gray-300/90 mb-6"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          Explore two sub-sections in Skills Universe:
+          <span className="text-white font-semibold"> Core Skills</span> — main development skills like HTML, CSS, JavaScript, React, Next.js, etc.; and
+          <span className="text-white font-semibold"> Tools & Technologies</span> — tools such as MongoDB, VS Code, Git, GitHub, FileZilla and other related utilities. Click a tab to switch between them.
+        </motion.p>
+
         {/* Main Card */}
         <motion.div
           className="glass-strong rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl"
