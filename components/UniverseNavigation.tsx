@@ -79,7 +79,7 @@ const UniverseNavigation: React.FC = () => {
 
           {/* Orbiting Planets */}
           {navigationPlanets.map((planet, index) => {
-            const angle = (index * 360) / navigationPlanets.length;
+            const angle = (index * 360) / navigationPlanets.length ;
             const radius = 100;
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;

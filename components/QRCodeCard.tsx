@@ -33,7 +33,7 @@ const QRCodeCard: React.FC<QRCodeCardProps> = ({
         </div>
         <span className="text-gray-300 group-hover:text-white text-sm">Scan Me</span>
       </div>
-    </Link>
+    </Link>    
   );
 };
 
